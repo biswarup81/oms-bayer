@@ -1,4 +1,5 @@
 <?php include './inc/head.php';?>
+<?php include './inc/db-con.php'; ?>
 
 <body>
   <section id="container">
@@ -231,16 +232,23 @@
                 </div>
                 <br>
               </div>
+              <?php
+              if ($result = mysqli_query($con, "select MPG_Descr,count(MPG_Descr) as num from TDOP group by MPG_Descr")) {
+?>
               <div class="panel-body">
                 <div class="task-content">
                   <ul class="task-list">
+                  <?php
+                  while ($obj = $result -> fetch_object()) {
+              ?>
+              
                     <li>
                       <div class="task-checkbox">
                         <input type="checkbox" class="list-child" value="" />
                       </div>
                       <div class="task-title">
-                        <span class="task-title-sp">Bayerio - Admin Panel & Front-end Theme</span>
-                        <span class="badge bg-theme">Done</span>
+                        <span class="task-title-sp"><?php echo $obj->MPG_Descr ?> (<?php echo $obj->num ?>)</span>
+                        <span class="badge bg-theme">New</span>
                         <div class="pull-right hidden-phone">
                           <button class="btn btn-success btn-xs"><i class=" fa fa-check"></i></button>
                           <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
@@ -248,62 +256,9 @@
                         </div>
                       </div>
                     </li>
-                    <li>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">Extensive collection of plugins</span>
-                        <span class="badge bg-warning">Cool</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs"><i class=" fa fa-check"></i></button>
-                          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">Free updates always, no extra fees.</span>
-                        <span class="badge bg-success">2 Days</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs"><i class=" fa fa-check"></i></button>
-                          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">More features coming soon</span>
-                        <span class="badge bg-info">Tomorrow</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs"><i class=" fa fa-check"></i></button>
-                          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">Hey, seriously, you should buy this Bayerboard</span>
-                        <span class="badge bg-important">Now</span>
-                        <div class="pull-right">
-                          <button class="btn btn-success btn-xs"><i class=" fa fa-check"></i></button>
-                          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                        </div>
-                      </div>
-                    </li>
+                    <?php }
+                    mysqli_free_result($result);
+                  }?>
                   </ul>
                 </div>
                 <div class=" add-task-row">
@@ -322,20 +277,24 @@
             <section class="task-panel tasks-widget">
               <div class="panel-heading">
                 <div class="pull-left">
-                  <h5><i class="fa fa-tasks"></i> All Tasks</h5>
+                  <h5><i class="fa fa-tasks"></i> My Completed Tasks</h5>
                 </div>
                 <br>
               </div>
               <div class="panel-body">
                 <div class="task-content">
                   <ul id="sortable" class="task-list">
+                  <?php
+              if ($result = mysqli_query($con, "select MPG_Descr,count(MPG_Descr) as num from TDOP group by MPG_Descr")) {
+                 while ($obj = $result -> fetch_object()) {
+?>
                     <li class="list-primary">
                       <i class=" fa fa-ellipsis-v"></i>
                       <div class="task-checkbox">
                         <input type="checkbox" class="list-child" value="" />
                       </div>
                       <div class="task-title">
-                        <span class="task-title-sp">Bayerio - Admin Panel & Front-end Theme</span>
+                        <span class="task-title-sp"><?php echo $obj->MPG_Descr ?> (<?php echo $obj->num ?>)</span>
                         <span class="badge bg-theme">Done</span>
                         <div class="pull-right hidden-phone">
                           <button class="btn btn-success btn-xs fa fa-check"></button>
@@ -344,66 +303,10 @@
                         </div>
                       </div>
                     </li>
-                    <li class="list-danger">
-                      <i class=" fa fa-ellipsis-v"></i>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">Extensive collection of plugins</span>
-                        <span class="badge bg-warning">Cool</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs fa fa-check"></button>
-                          <button class="btn btn-primary btn-xs fa fa-pencil"></button>
-                          <button class="btn btn-danger btn-xs fa fa-trash-o"></button>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-success">
-                      <i class=" fa fa-ellipsis-v"></i>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">Free updates always, no extra fees.</span>
-                        <span class="badge bg-success">2 Days</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs fa fa-check"></button>
-                          <button class="btn btn-primary btn-xs fa fa-pencil"></button>
-                          <button class="btn btn-danger btn-xs fa fa-trash-o"></button>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-warning">
-                      <i class=" fa fa-ellipsis-v"></i>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">More features coming soon</span>
-                        <span class="badge bg-info">Tomorrow</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs fa fa-check"></button>
-                          <button class="btn btn-primary btn-xs fa fa-pencil"></button>
-                          <button class="btn btn-danger btn-xs fa fa-trash-o"></button>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-info">
-                      <i class=" fa fa-ellipsis-v"></i>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">Hey, seriously, you should buy this Bayerboard</span>
-                        <span class="badge bg-important">Now</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-success btn-xs fa fa-check"></button>
-                          <button class="btn btn-primary btn-xs fa fa-pencil"></button>
-                          <button class="btn btn-danger btn-xs fa fa-trash-o"></button>
-                        </div>
-                      </div>
-                    </li>
+                    
+                    <?php }
+                    mysqli_free_result($result);
+                  }?>
                   </ul>
                 </div>
                 <div class=" add-task-row">
@@ -422,25 +325,7 @@
     <!-- /MAIN CONTENT -->
     <!--main content end-->
     <!--footer start-->
-    <footer class="site-footer">
-      <div class="text-center">
-        <p>
-          &copy; Copyrights <strong>Bayerio</strong>. All Rights Reserved
-        </p>
-        <div class="credits">
-          <!--
-            You are NOT allowed to delete the credit link to TemplateMag with free version.
-            You can delete the credit link only if you bought the pro version.
-            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/Bayerio-bootstrap-admin-template/
-            Licensing information: https://templatemag.com/license/
-          -->
-          Created with Bayerio template by <a href="https://templatemag.com/">TemplateMag</a>
-        </div>
-        <a href="todo_list.html#" class="go-top">
-          <i class="fa fa-angle-up"></i>
-          </a>
-      </div>
-    </footer>
+    <?php include './inc/footer.php' ?> 
     <!--footer end-->
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
